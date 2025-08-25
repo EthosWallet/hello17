@@ -1,0 +1,349 @@
+# Test poetry.lock file for dependency confusion detection
+# This file contains locked dependency versions as managed by Poetry
+
+[[package]]
+name = "requests"
+version = "2.28.1"
+description = "Python HTTP for Humans."
+category = "main"
+optional = false
+python-versions = ">=3.7, <4"
+
+[package.dependencies]
+certifi = ">=2017.4.17"
+charset-normalizer = ">=2,<3"
+idna = ">=2.5,<4"
+urllib3 = ">=1.21.1,<1.27"
+
+[[package]]
+name = "certifi"
+version = "2022.6.15"
+description = "Python package for providing Mozilla's CA Bundle."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
+name = "charset-normalizer"
+version = "2.1.0"
+description = "The Real First Universal Charset Detector."
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[[package]]
+name = "urllib3"
+version = "1.26.11"
+description = "HTTP library with thread-safe connection pooling."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <4"
+
+# Suspicious internal packages (should be flagged for dependency confusion)
+[[package]]
+name = "internal-auth-service"
+version = "3.4.2"
+description = "Internal authentication service client"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+pyjwt = ">=2.0.0"
+cryptography = ">=36.0.0"
+
+[[package]]
+name = "company-database-pool"
+version = "2.7.8"
+description = "Company database connection pooling"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+sqlalchemy = ">=1.4.0"
+psycopg2-binary = ">=2.8.0"
+
+[[package]]
+name = "private-message-queue"
+version = "1.9.5"
+description = "Private message queue client library"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+pika = ">=1.2.0"
+redis = ">=4.0.0"
+
+[[package]]
+name = "org-config-manager"
+version = "4.1.6"
+description = "Organization configuration management"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+pyyaml = ">=6.0"
+jsonschema = ">=4.0.0"
+
+[[package]]
+name = "enterprise-logging-handler"
+version = "2.8.3"
+description = "Enterprise logging and audit handler"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+structlog = ">=22.0.0"
+python-json-logger = ">=2.0.0"
+
+[[package]]
+name = "custom-validation-engine"
+version = "3.5.1"
+description = "Custom data validation engine"
+category = "main"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+cerberus = ">=1.3.0"
+marshmallow = ">=3.17.0"
+
+[[package]]
+name = "internal-cache-provider"
+version = "1.6.9"
+description = "Internal caching provider implementation"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+redis = ">=4.3.0"
+memcached = ">=1.6.0"
+
+[[package]]
+name = "company-security-utils"
+version = "5.2.4"
+description = "Company security utilities and helpers"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+cryptography = ">=37.0.0"
+bcrypt = ">=3.2.0"
+passlib = ">=1.7.0"
+
+[[package]]
+name = "private-analytics-collector"
+version = "2.3.7"
+description = "Private analytics data collection service"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+requests = ">=2.28.0"
+pandas = ">=1.4.0"
+
+[[package]]
+name = "org-workflow-orchestrator"
+version = "3.7.2"
+description = "Organization workflow orchestration engine"
+category = "main"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+celery = ">=5.2.0"
+redis = ">=4.3.0"
+
+[[package]]
+name = "enterprise-monitoring-agent"
+version = "4.4.1"
+description = "Enterprise system monitoring agent"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+prometheus-client = ">=0.14.0"
+psutil = ">=5.9.0"
+
+# Development dependencies (suspicious ones should be flagged)
+[[package]]
+name = "pytest"
+version = "7.1.2"
+description = "pytest: simple powerful testing with Python"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
+name = "black"
+version = "22.6.0"
+description = "The uncompromising code formatter."
+category = "dev"
+optional = false
+python-versions = ">=3.6.2"
+
+[[package]]
+name = "internal-test-framework"
+version = "2.9.4"
+description = "Internal testing framework and utilities"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+pytest = ">=7.0.0"
+pytest-mock = ">=3.8.0"
+
+[[package]]
+name = "company-mock-server"
+version = "3.1.8"
+description = "Company mock server for testing"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+flask = ">=2.1.0"
+requests-mock = ">=1.9.0"
+
+[[package]]
+name = "private-dev-database"
+version = "1.7.5"
+description = "Private development database setup"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+docker = ">=6.0.0"
+sqlalchemy = ">=1.4.0"
+
+[[package]]
+name = "org-integration-tester"
+version = "4.2.3"
+description = "Organization integration testing suite"
+category = "dev"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+requests = ">=2.28.0"
+pytest-asyncio = ">=0.19.0"
+
+[[package]]
+name = "enterprise-load-simulator"
+version = "2.6.7"
+description = "Enterprise load testing and simulation"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+locust = ">=2.10.0"
+faker = ">=15.0.0"
+
+[[package]]
+name = "custom-debug-profiler"
+version = "1.8.2"
+description = "Custom debugging and profiling tools"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+line-profiler = ">=3.5.0"
+memory-profiler = ">=0.60.0"
+
+[[package]]
+name = "internal-code-generator"
+version = "3.4.6"
+description = "Internal code generation utilities"
+category = "dev"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+jinja2 = ">=3.1.0"
+click = ">=8.1.0"
+
+# Additional suspicious packages with various categories
+[[package]]
+name = "company-deployment-orchestrator"
+version = "5.1.9"
+description = "Company deployment orchestration platform"
+category = "main"
+optional = true
+python-versions = ">=3.8"
+
+[package.dependencies]
+kubernetes = ">=24.2.0"
+docker = ">=6.0.0"
+
+[[package]]
+name = "private-secrets-manager"
+version = "2.4.8"
+description = "Private secrets management client"
+category = "main"
+optional = true
+python-versions = ">=3.8"
+
+[package.dependencies]
+hvac = ">=1.0.0"
+cryptography = ">=37.0.0"
+
+[[package]]
+name = "org-telemetry-shipper"
+version = "1.9.3"
+description = "Organization telemetry data shipping"
+category = "main"
+optional = true
+python-versions = ">=3.8"
+
+[package.dependencies]
+opentelemetry-api = ">=1.12.0"
+opentelemetry-exporter-jaeger = ">=1.12.0"
+
+[[package]]
+name = "enterprise-feature-flags"
+version = "3.6.4"
+description = "Enterprise feature flag management"
+category = "main"
+optional = true
+python-versions = ">=3.8"
+
+[package.dependencies]
+launchdarkly-server-sdk = ">=8.2.0"
+
+[[package]]
+name = "custom-service-discovery"
+version = "2.7.1"
+description = "Custom service discovery client"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+consul = ">=1.1.0"
+etcd3 = ">=0.12.0"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "f2b2c7e9c6c8e4f5a9b7d8c3e1f4a6b2c8d9e5f7a3b1c6d8e2f9a4b7c1e5d3f8a9b2"
+
+[metadata.files]
+requests = [
+    {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
+    {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97dcd"},
+]
+
+# Note: In a real poetry.lock file, all packages would have file hashes
+# For this test file, we're only including a sample to demonstrate the format
