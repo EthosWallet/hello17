@@ -1,0 +1,252 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "wheel",
+    "build",
+    "private-company-package==1.2.3",  # Potential dependency confusion
+    "internal-auth-lib>=2.0.0",        # Another potential internal package
+    "custom-ml-toolkit==0.5.1"         # Suspicious internal-looking package
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "test-security-scanner"
+version = "1.0.0"
+description = "A comprehensive test project for security scanning"
+authors = [
+    {name = "Test Author", email = "test@example.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
+
+# Mixed dependencies - some legitimate, some potentially suspicious
+dependencies = [
+    "requests>=2.25.1",
+    "numpy>=1.19.0",
+    "pandas>=1.3.0",
+    "fastapi>=0.68.0",
+    "company-secrets-manager==1.0.1",   # Suspicious internal package
+    "org-internal-utils>=0.3.0",       # Another suspicious package  
+    "private-db-connector==2.1.0",     # Potential dependency confusion target
+    "secure-vault-client>=1.5.0",      # Suspicious name suggesting internal use
+    "enterprise-sso-lib==0.8.2",       # Enterprise-sounding package
+    "aiohttp>=3.7.0",
+    "pydantic>=1.8.0",
+    "sqlalchemy>=1.4.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.10.0",
+    "black>=21.0.0",
+    "flake8>=3.8.0",
+    "mypy>=0.910",
+    "internal-test-framework==1.2.0",  # Potential internal package
+    "company-mock-services>=0.4.0"     # Another suspicious dev dependency
+]
+
+testing = [
+    "pytest>=6.0.0",
+    "pytest-asyncio>=0.15.0",
+    "coverage>=5.5.0",
+    "factory-boy>=3.2.0",
+    "private-test-data-generator==0.1.5" # Suspicious testing package
+]
+
+production = [
+    "gunicorn>=20.1.0",
+    "redis>=3.5.0",
+    "celery>=5.1.0",
+    "enterprise-monitoring>=2.0.0",    # Potential internal monitoring package
+    "company-deployment-tools==1.1.1"  # Suspicious deployment package
+]
+
+docs = [
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=0.5.0",
+    "myst-parser>=0.15.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/testorg/test-security-scanner"
+Documentation = "https://docs.example.com"
+Repository = "https://github.com/testorg/test-security-scanner.git"
+"Bug Tracker" = "https://github.com/testorg/test-security-scanner/issues"
+# Potentially problematic URLs that might be claimable
+"Internal Docs" = "https://github.com/abandoned-org/internal-docs"
+"Private Tools" = "https://github.com/old-company/deprecated-tools"
+
+[project.scripts]
+security-scanner = "security_scanner.cli:main"
+scan-deps = "security_scanner.deps:scan"
+
+# Tool configurations that might contain sensitive patterns
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+security_scanner = ["*.json", "*.yaml", "*.toml"]
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests"
+]
+# Potentially sensitive test configuration
+env = [
+    "TEST_DATABASE_URL=postgresql://testuser:testpass@localhost/testdb",
+    "API_SECRET_KEY=test-secret-key-12345",
+    "INTERNAL_API_TOKEN=internal-test-token-67890"
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+    "conftest.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError"
+]
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+# Isort configuration  
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["security_scanner"]
+known_third_party = [
+    "requests",
+    "numpy", 
+    "pandas",
+    "fastapi",
+    "company-secrets-manager",     # Will flag as potentially suspicious
+    "org-internal-utils",          # Will flag as potentially suspicious
+    "private-db-connector"         # Will flag as potentially suspicious
+]
+
+# Custom security scanner configuration (this section might trigger alerts)
+[tool.security-scanner]
+ignore_packages = [
+    "company-secrets-manager",     # Ironically ignoring suspicious packages
+    "private-db-connector"
+]
+private_registries = [
+    "https://pypi.internal-company.com/simple/",
+    "https://artifacts.enterprise.local/pypi/simple/"
+]
+api_keys = {
+    internal = "sk-internal-api-key-placeholder-12345",
+    production = "prod-api-key-abcdef123456789"
+}
+
+# Bandit security linter configuration
+[tool.bandit]
+exclude_dirs = ["tests", "test_*"]
+skips = ["B101", "B601"]  # Skip assert and shell injection tests
+
+# Additional configurations that might contain sensitive data
+[tool.custom-deploy]
+environments = {
+    staging = {
+        database_url = "postgresql://staging:staging123@db.staging.internal/app",
+        redis_url = "redis://redis.staging.internal:6379/0",
+        secret_key = "staging-secret-key-xyz789"
+    },
+    production = {
+        database_url = "postgresql://prod:prod456@db.prod.internal/app", 
+        redis_url = "redis://redis.prod.internal:6379/0",
+        secret_key = "production-secret-key-abc123"
+    }
+}
+
+# Package source configuration (might trigger extra-index-url checks)
+[tool.pip]
+extra-index-url = [
+    "https://pypi.internal-company.com/simple/",
+    "https://artifacts.enterprise.local/pypi/simple/",
+    "https://suspicious-pypi-mirror.com/simple/"
+]
+trusted-host = [
+    "pypi.internal-company.com", 
+    "artifacts.enterprise.local"
+]
+
+# Custom registry authentication
+[tool.poetry.source]
+[[tool.poetry.source]]
+name = "internal"
+url = "https://pypi.internal-company.com/simple/"
+secondary = true
+
+[[tool.poetry.source]]
+name = "enterprise"
+url = "https://artifacts.enterprise.local/pypi/simple/"
+secondary = true
