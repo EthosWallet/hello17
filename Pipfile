@@ -1,0 +1,144 @@
+# Test Pipfile for dependency confusion detection
+# This file is used by Pipenv for Python dependency management
+
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+# Additional suspicious package sources (might trigger extra-index-url detection)
+[[source]]
+url = "https://pypi.internal-company.com/simple"
+verify_ssl = true
+name = "internal"
+
+[[source]]
+url = "https://packages.legacy-corp.local/simple"
+verify_ssl = false
+name = "legacy"
+
+[packages]
+# Standard legitimate packages
+requests = ">=2.28.0"
+urllib3 = ">=1.26.0"
+click = ">=8.1.0"
+flask = ">=2.1.0"
+sqlalchemy = ">=1.4.0"
+celery = ">=5.2.0"
+redis = ">=4.3.0"
+boto3 = ">=1.24.0"
+psycopg2-binary = ">=2.9.0"
+pyyaml = ">=6.0"
+jsonschema = ">=4.6.0"
+cryptography = ">=37.0.0"
+pyjwt = ">=2.4.0"
+bcrypt = ">=3.2.0"
+
+# Date and time handling
+python-dateutil = ">=2.8.0"
+pytz = ">=2022.1"
+arrow = ">=1.2.0"
+
+# HTTP and networking  
+aiohttp = ">=3.8.0"
+httpx = ">=0.23.0"
+websockets = ">=10.3"
+
+# Data processing and analysis
+pandas = ">=1.4.0"
+numpy = ">=1.21.0"
+matplotlib = ">=3.5.0"
+
+# Suspicious internal packages (should be flagged for dependency confusion)
+internal-user-management = "==3.7.2"
+company-payment-gateway = ">=2.8.4"
+private-notification-service = "==1.9.6"
+org-config-loader = ">=4.1.3"
+enterprise-audit-logger = "==2.5.8"
+custom-auth-provider = ">=3.2.9"
+internal-data-processor = "==1.7.5"
+company-cache-manager = ">=2.4.7"
+private-encryption-lib = "==4.3.1"
+org-monitoring-agent = ">=1.8.9"
+enterprise-backup-service = "==3.6.2"
+custom-validation-engine = ">=2.7.4"
+internal-service-mesh = "==1.5.3"
+company-metrics-collector = ">=3.4.8"
+private-workflow-engine = "==2.9.1"
+
+# Packages with Git sources (should trigger GitHub hijacking detection)
+internal-legacy-tools = {git = "https://github.com/defunct-company/legacy-tools.git", ref = "main"}
+company-archived-utils = {git = "https://github.com/old-startup/archived-utilities.git", ref = "v1.2.3"}
+private-deprecated-lib = {git = "https://github.com/missing-org/deprecated-library.git", ref = "master"}
+
+# Packages from specific indices
+internal-core-lib = {version = ">=2.3.4", index = "internal"}
+company-shared-models = {version = "==1.8.7", index = "internal"}  
+legacy-integration-tools = {version = ">=3.1.2", index = "legacy"}
+
+# Packages with complex version specifications
+internal-complex-service = ">=2.1.0,<3.0.0,!=2.5.0"
+company-multi-version = "~=1.4.0"
+private-pinned-exact = "==2.7.3"
+org-range-specified = ">1.0.0,<=2.0.0"
+
+[dev-packages]
+# Standard development tools
+pytest = ">=7.1.0"
+pytest-cov = ">=3.0.0"
+pytest-mock = ">=3.8.0"
+pytest-xdist = ">=2.5.0"
+coverage = ">=6.4.0"
+black = ">=22.6.0"
+flake8 = ">=5.0.0"
+mypy = ">=0.971"
+isort = ">=5.10.0"
+pre-commit = ">=2.20.0"
+tox = ">=3.25.0"
+bandit = ">=1.7.0"
+safety = ">=2.1.0"
+
+# Documentation tools
+sphinx = ">=5.0.0"
+sphinx-rtd-theme = ">=1.0.0"
+myst-parser = ">=0.18.0"
+
+# Debugging and profiling
+pdb = "*"
+ipdb = ">=0.13.0"
+line-profiler = ">=3.5.0"
+memory-profiler = ">=0.60.0"
+
+# Suspicious development packages (should be flagged)
+internal-dev-server = "==4.2.1"
+company-debug-toolbar = ">=2.9.3"
+private-test-fixtures = "==1.6.8"
+org-mock-factory = ">=3.4.5"
+enterprise-load-tester = "==2.7.9"
+custom-code-generator = ">=1.8.2"
+internal-dev-proxy = "==3.1.7"
+company-hot-reload = ">=2.5.4"
+private-dev-database = "==4.6.3"
+org-local-simulator = ">=1.9.6"
+enterprise-test-orchestrator = "==3.8.1"
+custom-fixture-builder = ">=2.4.7"
+internal-chaos-monkey = "==1.7.4"
+company-performance-profiler = ">=3.2.8"
+private-integration-runner = "==2.8.5"
+
+# Git-based development dependencies (should trigger GitHub hijacking detection)
+internal-dev-tools = {git = "https://github.com/abandoned-corp/dev-tools.git", ref = "develop", editable = true}
+company-test-utilities = {git = "https://github.com/old-company/test-utils.git", ref = "feature/new-tests"}
+private-mock-services = {git = "https://github.com/missing-startup/mock-services.git", ref = "latest"}
+
+# Development packages from internal sources
+internal-dev-core = {version = ">=3.4.2", index = "internal"}
+company-dev-shared = {version = "==2.1.9", index = "internal"}
+legacy-dev-tools = {version = ">=1.8.3", index = "legacy"}
+
+[requires]
+python_version = "3.10"
+
+# Pipenv configuration
+[pipenv]
+allow_prereleases = true
